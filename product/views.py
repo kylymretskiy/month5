@@ -3,7 +3,40 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Category , Product , Review
-from .serializers import CategorySerializer , ProductSerializer , ReviewSerializer , ProductValidateSerializer , CategoryValidateSerializer, ReviewValidateSerializer
+from .serializers import (CategorySerializer ,
+                          ProductSerializer ,
+                          ReviewSerializer ,
+                          ProductValidateSerializer ,
+                          CategoryValidateSerializer,
+                          ReviewValidateSerializer)
+from rest_framework.generics import ListCreateAPIView , RetrieveUpdateDestroyAPIView
+
+class CategoryListAPIView(ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class CategoryDetailListAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    lookup_field = "id"
+
+class ProductListAPIView(ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductDetailListAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = "id"
+
+class ReviewListAPIView(ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+class ReviewDetailListAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    lookup_field = "id"
 
 @api_view(http_method_names=['GET', 'POST'])
 def category_list_api_view(request):
